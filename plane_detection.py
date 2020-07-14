@@ -1,7 +1,7 @@
 from utils import *
 
 
-def DetectMultiPlanes(points, min_ratio=0.05, threshold=0.01):
+def DetectMultiPlanes(points, min_ratio=0.05, threshold=0.01, iterations=1000):
     """ Detect multiple planes from given point clouds
 
     Args:
@@ -15,15 +15,16 @@ def DetectMultiPlanes(points, min_ratio=0.05, threshold=0.01):
 
     plane_list = []
     N = len(points)
+    target = points.copy()
     count = 0
 
     while count < (1 - min_ratio) * N:
-        w, index = PlaneRegression(points, threshold=threshold)
-        plane = points[index]
-        points[index] = float('inf') 
+        w, index = PlaneRegression(
+            target, threshold=threshold, iter=iterations)
+        target[index] = float('inf')
         count += len(index)
         plane_list.append((w, index))
-    
+
     return plane_list
 
 
@@ -39,7 +40,7 @@ if __name__ == "__main__":
 
     #DrawPointCloud(points, color=(0.4, 0.4, 0.4))
 
-    results = DetectMultiPlanes(points.copy(), min_ratio=0.05, threshold=0.01)
+    results = DetectMultiPlanes(points, min_ratio=0.05, threshold=0.005, iterations=2000)
 
     planes = []
     colors = []
