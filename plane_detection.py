@@ -20,10 +20,11 @@ def DetectMultiPlanes(points, min_ratio=0.05, threshold=0.01, iterations=1000):
 
     while count < (1 - min_ratio) * N:
         w, index = PlaneRegression(
-            target, threshold=threshold, iter=iterations)
-        target[index] = float('inf')
+            target, threshold=threshold, init_n=3, iter=iterations)
+    
         count += len(index)
-        plane_list.append((w, index))
+        plane_list.append((w, target[index]))
+        target = np.delete(target, index, axis=0)
 
     return plane_list
 
@@ -44,8 +45,7 @@ if __name__ == "__main__":
 
     planes = []
     colors = []
-    for _, index in results:
-        plane = points[index]
+    for _, plane in results:
 
         r = random.random()
         g = random.random()
