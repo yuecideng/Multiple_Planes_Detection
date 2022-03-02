@@ -1,4 +1,7 @@
 # Multiple Planes Detection
+
+**(New) A new and more generalized implementation can be found at  [Misc3D](https://github.com/yuecideng/Misc3D)**
+
 A fast and simple method for multi-planes detection from point clouds using iterative RANSAC plane fitting.
 
 ## Pre-requisite
