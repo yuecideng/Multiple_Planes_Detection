@@ -1,13 +1,13 @@
 # Multiple Planes Detection
 
-**(New) A new implementation with both C++ and Python API can be found at  [Misc3D](https://github.com/yuecideng/Misc3D). The RANSAC is implemented to support parallel computing which makes it more faster than before. Now my PR about [Open3D MultiThreadSegmentPlane](https://github.com/isl-org/Open3D/pull/4863) has been merged into master branch. You can also use this code with parallel ransac by building Open3D master from source, or waiting for the latest Release.**
-
 A fast and simple method for multi-planes detection from point clouds using iterative RANSAC plane fitting.
 
 ## Pre-requisite
 - Python >= 3.5
 - Numpy
-- Open3D
+- Open3D >= 0.16.0 
+
+**(Since Open3D 0.16.0, the ransac plane fitting is parallel using openmp. If you use older versions, it can run but the speed would be slow.)**
 
 You can install numpy and open3d by:
 ```
